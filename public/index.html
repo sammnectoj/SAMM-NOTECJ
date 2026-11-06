@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMM NECTOJ🧩</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Màn hình đăng nhập/đăng ký -->
+    <div id="authScreen" class="screen">
+        <div class="auth-box">
+            <h1>SAMM NECTOJ🧩</h1>
+            <p class="subtitle">Chào mừng bạn đến với SAMM NECTOJ🧩</p>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('login')">Đăng nhập</button>
+                <button class="tab" onclick="switchTab('register')">Đăng ký</button>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <input type="text" id="loginUsername" placeholder="Tên đăng nhập" required>
+                <input type="password" id="loginPassword" placeholder="Mật khẩu" required>
+                <button type="submit" class="btn-primary">Đăng nhập</button>
+            </form>
+
+            <form id="registerForm" onsubmit="handleRegister(event)" style="display:none">
+                <input type="text" id="regFullName" placeholder="Họ và tên" required>
+                <input type="text" id="regUsername" placeholder="Tên đăng nhập" required>
+                <input type="password" id="regPassword" placeholder="Mật khẩu" required>
+                <button type="submit" class="btn-primary">Đăng ký</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Màn hình chính -->
+    <div id="mainScreen" class="screen" style="display:none">
+        <header>
+            <h2>SAMM NECTOJ🧩</h2>
+            <nav>
+                <button class="nav-btn active" onclick="showPage('home')">🏠 Trang chủ</button>
+                <button class="nav-btn" onclick="showPage('upload')">📤 Tải File</button>
+                <button class="nav-btn" onclick="showPage('orders')">📦 Đơn hàng</button>
+                <button class="nav-btn" onclick="showPage('history')">📜 Lịch sử tải</button>
+                <button class="nav-btn" onclick="showPage('profile')">👤 Hồ sơ</button>
+                <button class="nav-btn logout" onclick="logout()">🚪 Đăng xuất</button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Trang chủ -->
+            <div id="home" class="page active">
+                <div class="welcome-card">
+                    <h1>🎉 CHÀO BẠN LẾN VỚI SAMM NECTOJ🧩</h1>
+                    <p>MONG MỌI NGƯỜI <strong id="welcomeName">TÊN …</strong></p>
+                </div>
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3 id="statFiles">0</h3>
+                        <p>File đã tải</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="statOrders">0</h3>
+                        <p>Đơn hàng</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tải File -->
+            <div id="upload" class="page">
+                <h2>📤 Tải FILE lên SAMM NECTOJ🧩</h2>
+                <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                    <p>📁 Nhấn để chọn file</p>
+                    <input type="file" id="fileInput" onchange="handleUpload(event)" style="display:none">
+                </div>
+                <div id="uploadProgress"></div>
+                <div id="uploadResult"></div>
+            </div>
+
+            <!-- Đơn hàng -->
+            <div id="orders" class="page">
+                <h2>📦 Đơn hàng của bạn</h2>
+                <button class="btn-secondary" onclick="createDemoOrder()">➕ Tạo đơn hàng demo</button>
+                <div id="ordersList" class="list"></div>
+            </div>
+
+            <!-- Lịch sử tải -->
+            <div id="history" class="page">
+                <h2>📜 Lịch sử tải FILE</h2>
+                <div id="historyList" class="list"></div>
+            </div>
+
+            <!-- Hồ sơ -->
+            <div id="profile" class="page">
+                <h2>👤 Hồ sơ của bạn</h2>
+                <div class="profile-card">
+                    <p><strong>Tên đăng nhập:</strong> <span id="profileUsername"></span></p>
+                    <p><strong>Họ tên:</strong> <span id="profileFullName"></span></p>
+                </div>
+                <h3>🔐 Đổi mật khẩu</h3>
+                <form onsubmit="handleChangePassword(event)">
+                    <input type="password" id="oldPassword" placeholder="Mật khẩu cũ" required>
+                    <input type="password" id="newPassword" placeholder="Mật khẩu mới" required>
+                    <button type="submit" class="btn-primary">Đổi mật khẩu</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Thông báo Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
